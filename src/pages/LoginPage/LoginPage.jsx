@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import {Button, Input, Form, Typography, Card} from 'antd';
 import styles  from './LoginPage.module.css';
 import {useStore} from "effector-react";
@@ -20,9 +20,15 @@ const LoginPage = () => {
     const [form] = Form.useForm();
     const loading = useStore(loginFx.pending);
 
-    const status = $authStatus;
+    const status = useStore($authStatus);
 
+    console.log(status)
 
+    useEffect(() => {
+        if (status){
+            navigate('/tasks');
+        }
+    }, []);
 
 
     const handleSubmit = () => {
@@ -31,6 +37,9 @@ const LoginPage = () => {
             password: faker.internet.password(),
         };
         console.log('Mock Data:', mockData);
+
+
+
 
         loginFx(mockData).then(() => {
             setAuthStatus(true);
