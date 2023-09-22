@@ -4,43 +4,126 @@
       "id": 1,
       "name": "Task 1",
       "description": "Описание 1",
-      "answers": ["Ответ 1", "Ответ 2"],
-      "task_items_count": 5
+      "task_items": [
+        {
+          "id": 1,
+          "task_id": 1,
+          "title": "Task Item 1",
+          "text": "Текст 1",
+          "description": "Описание Task Item 1",
+          "answers": ["Ответ 1", "Ответ 2"]
+        },
+        {
+          "id": 2,
+          "task_id": 1,
+          "title": "Task Item 2",
+          "text": "Текст 1",
+          "description": "Описание Task Item 1",
+          "answers": ["Ответ 1", "Ответ 2"]
+        },
+        {
+          "id": 3,
+          "task_id": 1,
+          "title": "Task Item 3",
+          "text": "Текст 1",
+          "description": "Описание Task Item 1",
+          "answers": ["Ответ 1", "Ответ 2"]
+        },
+        {
+          "id": 4,
+          "task_id": 1,
+          "title": "Task Item 4",
+          "text": "Текст 1",
+          "description": "Описание Task Item 1",
+          "answers": ["Ответ 1", "Ответ 2"]
+        }
+      ]
     },
     {
       "id": 2,
       "name": "Task 2",
       "description": "Описание 2",
-      "answers": ["Ответ A", "Ответ B"],
-      "task_items_count": 7
+      "task_items": [
+        {
+          "id": 2,
+          "task_id": 1,
+          "title": "Task Item 1",
+          "text": "Текст 1",
+          "description": "Описание Task Item 1",
+          "answers": ["Ответ 1", "Ответ 2"]
+        },
+        {
+          "id": 2,
+          "task_id": 2,
+          "title": "Task Item 2",
+          "text": "Текст 1",
+          "description": "Описание Task Item 1",
+          "answers": ["Ответ 1", "Ответ 2"]
+        },
+        {
+          "id": 2,
+          "task_id": 3,
+          "title": "Task Item 3",
+          "text": "Текст 1",
+          "description": "Описание Task Item 1",
+          "answers": ["Ответ 1", "Ответ 2"]
+        },
+        {
+          "id": 2,
+          "task_id": 4,
+          "title": "Task Item 4",
+          "text": "Текст 1",
+          "description": "Описание Task Item 1",
+          "answers": ["Ответ 1", "Ответ 2"]
+        }
+      ]
     },
     {
       "id": 3,
       "name": "Task 3",
-      "description": "Описание 2",
-      "answers": ["Ответ A", "Ответ B"],
-      "task_items_count": 7
-    },
-    {
-      "id": 4,
-      "name": "Task 4",
-      "description": "Описание 2",
-      "answers": ["Ответ A", "Ответ B"],
-      "task_items_count": 7
-    },
-    {
-      "id": 5,
-      "name": "Task 5",
-      "description": "Описание 2",
-      "answers": ["Ответ A", "Ответ B"],
-      "task_items_count": 7
-    },
-    {
-      "id": 6,
-      "name": "Task 6",
-      "description": "Описание 2",
-      "answers": ["Ответ A", "Ответ B"],
-      "task_items_count": 7
+      "description": "Описание 3",
+      "task_items": [
+        {
+          "id": 3,
+          "task_id": 1,
+          "title": "Task Item 1",
+          "text": "Текст 1",
+          "description": "Описание Task Item 1",
+          "answers": ["Ответ 1", "Ответ 2"]
+        },
+        {
+          "id": 3,
+          "task_id": 2,
+          "title": "Task Item 2",
+          "text": "Текст 1",
+          "description": "Описание Task Item 1",
+          "answers": ["Ответ 1", "Ответ 2"]
+        },
+        {
+          "id": 3,
+          "task_id": 3,
+          "title": "Task Item 3",
+          "text": "Текст 1",
+          "description": "Описание Task Item 1",
+          "answers": ["Ответ 1", "Ответ 2"]
+        },
+        {
+          "id": 3,
+          "task_id": 4,
+          "title": "Task Item 4",
+          "text": "Текст 1",
+          "description": "Описание Task Item 1",
+          "answers": ["Ответ 1", "Ответ 2"]
+        },
+        {
+          "id": 3,
+          "task_id": 5,
+          "title": "Task Item 4",
+          "text": "Текст 1",
+          "description": "Описание Task Item 1",
+          "answers": ["Ответ 1", "Ответ 2"]
+        }
+      ]
     }
   ]
 }

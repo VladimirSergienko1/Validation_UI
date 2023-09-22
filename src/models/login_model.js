@@ -1,6 +1,6 @@
-import {createEffect, createEvent, createStore} from 'effector';
+import {createEffect, createEvent, createStore, sample} from 'effector';
+import {createGate, useGate} from "effector-react";
 
-export const changeFormData = createEvent();
 export const submitForm = createEvent();
 
 export const $formData = createStore(
@@ -17,6 +17,8 @@ export const $formData = createStore(
     };
 })
 
+export const LoginGate = createGate();
+
 export const loginFx = createEffect(async ({login, password}) => {
     return new Promise((resolve, reject) => setTimeout(()=>{
         if (login && password){
@@ -26,4 +28,17 @@ export const loginFx = createEffect(async ({login, password}) => {
             return reject(true)
         }
     },2000))
+})
+
+export const logOutFx = createEffect(async()=>{
+    return new Promise(resolve => {
+        setTimeout(()=>{
+            return resolve (true)
+        },500)
+    })
+})
+
+sample({
+    clock: LoginGate.open,
+    target: loginFx
 })

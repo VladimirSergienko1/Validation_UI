@@ -1,0 +1,13 @@
+.card__container{
+    width: 20rem;
+}
+.list__item{
+    transition: 0.3s;
+}
+.list__item:hover{
+    background: #1677ff;
+}
+.list__item_count{
+    align-self: flex-end;
+    color: rgba(0, 0, 0, 0.45);
+}

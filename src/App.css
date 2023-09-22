@@ -4,3 +4,8 @@
   padding: 2rem;
   text-align: center;
 }
+.logout_btn{
+  position: fixed;
+  top: 2.5rem;
+  right: 2.5rem;
+}

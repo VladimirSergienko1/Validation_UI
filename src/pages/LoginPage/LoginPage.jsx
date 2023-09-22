@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from 'react';
-import {Button, Input, Form, Typography, Card} from 'antd';
+import {Button, Input, Form, Typography, Card, Spin} from 'antd';
 import styles  from './LoginPage.module.css';
 import {useStore} from "effector-react";
 /*import {$formData, changeFormData, submitForm} from "../../models/login_model.js";*/
 import {faker} from "@faker-js/faker";
-import {loginFx} from "../../models/login_model.js";
+import {loginFx, LoginGate} from "../../models/login_model.js";
 import {useNavigate} from "react-router-dom";
 import {$authStatus, setAuthStatus} from "../../models/auth_model.js";
 /*import {submitForm, $formData, changeFormData} from "../../models/login_model.js";*/
@@ -24,11 +24,15 @@ const LoginPage = () => {
 
     console.log(status)
 
-    useEffect(() => {
+    if (status){
+        navigate('/tasks');
+    }
+
+  /*  useEffect(() => {
         if (status){
             navigate('/tasks');
         }
-    }, []);
+    }, []);*/
 
 
     const handleSubmit = () => {
@@ -54,6 +58,7 @@ const LoginPage = () => {
 
     return (
         <Card className={styles.login__container}>
+            <LoginGate/>
             <Title level={2}>Login Page</Title>
             <Form
                 form={form}
