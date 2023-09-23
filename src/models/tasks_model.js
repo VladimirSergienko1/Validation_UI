@@ -2,11 +2,11 @@ import {createEffect, createStore, sample} from "effector";
 import {createGate} from "effector-react";
 
 export const fetchTasksFx = createEffect(async () => {
-    const response = await fetch('http://localhost:3001/tasks');
+    const response = await fetch('http://localhost:3000/tasks');
     return new Promise(resolve => {
-        setTimeout(()=>{
-            return resolve(response.json())
-        },500)
+        setTimeout( ()=>(
+            resolve(response.json())
+        ),300)
     })
 
 })

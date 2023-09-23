@@ -29,8 +29,8 @@ const TasksPage = () => {
                         pageSize: 20    ,
                     }}
                     renderItem={(item, index) => (
-                        <Link to={`/tasks/task:${item.id}`}>
-                        <List.Item className={styles.list__item}>
+                        <Link to={`/tasks/${item.id}`}>
+                        <List.Item className={styles.list__item} >
                             <List.Item.Meta
                                 title={item.name}
                                 description={item.description}
