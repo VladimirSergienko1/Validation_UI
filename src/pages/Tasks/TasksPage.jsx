@@ -12,7 +12,7 @@ const TasksPage = () => {
     const loading = useStore(fetchTasksFx.pending)
 
     return (
-        <div>
+        <div className={styles.task_page}>
             <TasksGate/>
             <h1>Tasks</h1>
             <Card className={styles.card__container}>
@@ -26,7 +26,7 @@ const TasksPage = () => {
                         onChange: (page) => {
                             console.log(page);
                         },
-                        pageSize: 20    ,
+                        pageSize: 6    ,
                     }}
                     renderItem={(item, index) => (
                         <Link to={`/tasks/${item.id}`}>
@@ -35,7 +35,7 @@ const TasksPage = () => {
                                 title={item.name}
                                 description={item.description}
                             />
-                            <p className={styles.list__item_count}>{`${item.done_count}/${item.task_items.length}`}</p>
+                            <p className={styles.list__item_count}>{`${item.task_items.filter(item=> !item.answered).length}/${item.task_items.length}`}</p>
                         </List.Item>
                             </Link>
                     )}

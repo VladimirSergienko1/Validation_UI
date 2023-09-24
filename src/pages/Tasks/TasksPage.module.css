@@ -1,5 +1,7 @@
 .card__container{
-    width: 20rem;
+    width: 100%;
+    max-height: 510px;
+    overflow-y: auto;
 }
 .list__item{
     transition: 0.3s;

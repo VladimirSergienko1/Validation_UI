@@ -1,6 +1,8 @@
-import {createEffect, createStore, sample} from "effector";
+import {createEffect, createEvent, createStore, sample} from "effector";
 import {createGate} from "effector-react";
 import {message} from "antd";
+import taksItems from "../pages/TaskItems/TaksItems.jsx";
+import {loginFx} from "./login_model.js";
 
 
 export const fetchTaskItemsFx = createEffect( async(taskId) =>{
@@ -23,10 +25,18 @@ export const fetchTaskItemsFx = createEffect( async(taskId) =>{
 
 
 })
+export const updateTaskItemEv = createEvent();
 
 
 
-export const $taskItems = createStore([]).on(fetchTaskItemsFx.doneData,(_, items)=> items)
+export const $taskItems = createStore([])
+    .on(fetchTaskItemsFx.doneData,(_, items)=> items)
+    .on(updateTaskItemEv, (taskItems, updatedTaskItem) => {
+        console.log('EVENT',taskItems, updatedTaskItem)
+        return taskItems.map(taskItem =>
+            taskItem.id === updatedTaskItem.id ? updatedTaskItem : taskItem
+        );
+    })
 
 export const TaskItemsGate = createGate()
 
