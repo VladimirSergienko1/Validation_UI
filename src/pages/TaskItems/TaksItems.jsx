@@ -58,7 +58,8 @@ const TaskItems = () =>{
         return(
         <>
             <TaskItemsGate taskId={taskId} />
-            <Card className={styles.card__container}>
+            <Card className={styles.card__container}
+            title={'Tasks List'}>
                 <List
                     loading = {loading}
                 >

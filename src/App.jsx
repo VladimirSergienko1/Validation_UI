@@ -7,16 +7,18 @@ import {$authStatus, setAuthStatus} from "./models/auth_model.js";
 import {Button, Layout} from "antd";
 import { PoweroffOutlined } from '@ant-design/icons';
 import {faker} from "@faker-js/faker";
-import {loginFx, logOutFx} from "./models/login_model.js";
+import {loginFx, logOutFx, setAdminStatus} from "./models/login_model.js";
 
 
 
 function App() {
     const authStatus = useStore($authStatus)
 
+
     const logOut = () =>{
         logOutFx().then(() => {
             setAuthStatus(false);
+            setAdminStatus(false);
             Navigate('/');
 
         }).catch(error => {

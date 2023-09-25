@@ -1,21 +1,29 @@
 import {useGate, useStore} from "effector-react";
 import {$authStatus} from "../../models/auth_model.js";
-import {useEffect, useState} from "react";
-import {Card, List} from 'antd';
+import React, {useEffect, useState} from "react";
+import {Card, Layout, List} from 'antd';
 import styles from './TasksPage.module.css'
 import {$tasks, fetchTasksFx, TasksGate} from "../../models/tasks_model.js";
 import {Link} from "react-router-dom";
+import {$user} from "../../models/login_model.js";
 
+const { Sider } = Layout;
 const TasksPage = () => {
 
     const tasks = useStore($tasks);
     const loading = useStore(fetchTasksFx.pending)
 
+    const user = useStore($user);
+
+    console.log('State User from Tasks',user)
+
     return (
         <div className={styles.task_page}>
             <TasksGate/>
-            <h1>Tasks</h1>
-            <Card className={styles.card__container}>
+
+            <Card
+                title={'Tasks'}
+                className={styles.card__container}>
                 <List
                     itemLayout="horizontal"
                     dataSource={tasks}

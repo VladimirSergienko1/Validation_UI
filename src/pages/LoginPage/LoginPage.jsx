@@ -4,8 +4,8 @@ import styles  from './LoginPage.module.css';
 import {useStore} from "effector-react";
 /*import {$formData, changeFormData, submitForm} from "../../models/login_model.js";*/
 import {faker} from "@faker-js/faker";
-import {loginFx, LoginGate} from "../../models/login_model.js";
-import {useNavigate} from "react-router-dom";
+import {$user, loginFx, LoginGate, setAdminStatus} from "../../models/login_model.js";
+import {Link, useNavigate} from "react-router-dom";
 import {$authStatus, setAuthStatus} from "../../models/auth_model.js";
 /*import {submitForm, $formData, changeFormData} from "../../models/login_model.js";*/
 
@@ -21,11 +21,19 @@ const LoginPage = () => {
     const loading = useStore(loginFx.pending);
 
     const status = useStore($authStatus);
+    const user = useStore($user);
 
-    console.log(status)
+    console.log('Auth status',status)
+    console.log('State User',user)
 
     if (status){
-        navigate('/tasks');
+        if (user && user.isAdmin){
+            navigate('/admin');
+        }
+        else{
+            navigate('/tasks');
+
+        }
     }
 
   /*  useEffect(() => {
@@ -37,21 +45,32 @@ const LoginPage = () => {
 
     const handleSubmit = () => {
         const mockData = {
-            login: faker.internet.userName(),
-            password: faker.internet.password(),
+            login: 'admin',
+            password: 'admin',
+            /*login: faker.internet.userName(),
+            password: faker.internet.password(),*/
         };
         console.log('Mock Data:', mockData);
 
 
 
 
-        loginFx(mockData).then(() => {
+        loginFx(mockData).then(user => {
             setAuthStatus(true);
-            navigate('/tasks');
 
+
+            if(mockData.login==='admin') {
+                /*setAdminStatus(true);
+                navigate('/admin');*/
+                console.log('User is Admin ' , user.isAdmin);
+            }
+            else{
+                navigate('/tasks');
+            }
         }).catch(error => {
             console.error('Login error:', error);
         });
+
 
         form.resetFields();
     };
@@ -59,6 +78,7 @@ const LoginPage = () => {
     return (
         <Card className={styles.login__container}>
             <LoginGate/>
+
             <Title level={2}>Login Page</Title>
             <Form
                 form={form}
