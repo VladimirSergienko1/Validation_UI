@@ -28,7 +28,7 @@ const LoginPage = () => {
 
     if (status){
         if (user && user.isAdmin){
-            navigate('/admin');
+            navigate('/tasks');
         }
         else{
             navigate('/tasks');
@@ -83,8 +83,8 @@ const LoginPage = () => {
             <Form
                 form={form}
                 initialValues={{
-                    ["login"]: '',
-                    ["password"]: '',
+                    ["login"]: 'd',
+                    ["password"]: 'd',
                 }}
                 layout="vertical"
                 onFinish={handleSubmit}

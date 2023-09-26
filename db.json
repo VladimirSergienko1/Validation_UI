@@ -185,8 +185,8 @@
     },
     {
       "id": 4,
-      "name": "Task 4",
-      "description": "Описание 2",
+      "name": "Task 11",
+      "description": "Описание 111",
       "task_items": [
         {
           "id": 1,
@@ -244,8 +244,8 @@
     },
     {
       "id": 5,
-      "name": "Task 5",
-      "description": "Описание 3",
+      "name": "Task 11",
+      "description": "Описание 111",
       "task_items": [
         {
           "id": 1,
