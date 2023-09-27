@@ -37,12 +37,6 @@ const LoginPage = () => {
         navigate('/tasks');
     }
 
-  /*  useEffect(() => {
-        if (status){
-            navigate('/tasks');
-        }
-    }, []);*/
-
 
     const handleSubmit = () => {
         const mockData = {

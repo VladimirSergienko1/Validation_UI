@@ -6,7 +6,7 @@ import { $user } from "../../models/login_model.js";
 import styles from './TasksPage.module.css'
 import {EditOutlined, PlusOutlined} from "@ant-design/icons";
 import EditTaskPage from "../admin/EditTask/EditTaskPage.jsx";
-import {useNavigate, useParams} from "react-router-dom";
+import {Link, useNavigate, useParams} from "react-router-dom";
 
 const TasksPage = () => {
     const tasks = useStore($tasks);
@@ -78,6 +78,8 @@ const TasksPage = () => {
                             pageSize: 6,
                         }}
                         renderItem={(item) => (
+                            <Link to={`/tasks/${item.id}`} disabled={!user?.isAdmin} >
+
                             <List.Item className={user?.isAdmin ? styles.adminListItem : styles.list__item}>
                                 <List.Item.Meta
                                     title={item.name}
@@ -94,6 +96,8 @@ const TasksPage = () => {
                                     </div>
                                 }
                             </List.Item>
+                            </Link>
+
                         )}
                     />
                 </Card>

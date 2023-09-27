@@ -2,21 +2,7 @@ import {createEffect, createEvent, createStore, sample} from 'effector';
 import {createGate, useGate} from "effector-react";
 import {$authStatus} from "./auth_model.js";
 
-export const submitForm = createEvent();
 
-/*export const $formData = createStore(
-
-    {
-        login: '',
-        password: '',
-    }
-).on(submitForm, (state, payload) => {
-    console.log('Payload:', payload);
-    return {
-        login: '',
-        password: '',
-    };
-})*/
 
 export const LoginGate = createGate();
 
