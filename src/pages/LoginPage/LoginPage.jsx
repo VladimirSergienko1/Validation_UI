@@ -27,13 +27,14 @@ const LoginPage = () => {
     console.log('State User',user)
 
     if (status){
-        if (user && user.isAdmin){
+       /* if (user && user.isAdmin){
             navigate('/tasks');
         }
         else{
             navigate('/tasks');
 
-        }
+        }*/
+        navigate('/tasks');
     }
 
   /*  useEffect(() => {
@@ -46,7 +47,7 @@ const LoginPage = () => {
     const handleSubmit = () => {
         const mockData = {
             login: 'admin',
-            password: 'admin',
+            password: 'admin ',
             /*login: faker.internet.userName(),
             password: faker.internet.password(),*/
         };

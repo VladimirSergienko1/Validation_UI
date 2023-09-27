@@ -47,7 +47,7 @@ export const loginFx = createEffect(async ({login, password}) => {
 
 export const $user = createStore(null);
 
-export const setAdminStatus = createEvent(true);
+export const setAdminStatus = createEvent();
 $user.on(setAdminStatus, (_, newValue) => newValue);
 
 
@@ -64,4 +64,5 @@ sample({
     target: loginFx
 })
 $user.on(loginFx.doneData, (_, user) => user);
-$user.reset(logOutFx);
+/*
+$user.reset(logOutFx);*/

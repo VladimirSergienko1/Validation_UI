@@ -2,14 +2,12 @@ import React, {useRef, useState} from 'react';
 import { useStore } from 'effector-react';
 import { Modal, Form, Input, Button, Upload  } from 'antd';
 import styles from '../../Tasks/TasksPage.module.css';
-import {deleteTaskFx, updateTaskFx} from "../../../models/admin/taskEdit_model.js";
+import {createTaskFx, deleteTaskFx, updateTaskFx} from "../../../models/admin/taskEdit_model.js";
 import {$user} from "../../../models/login_model.js";
 import {$tasks} from "../../../models/tasks_model.js";
-import {useNavigate, useParams} from "react-router-dom";
-import FormItem from "antd/es/form/FormItem/index.js";
 import {InboxOutlined} from "@ant-design/icons";
 
-const EditTaskPage = ({ isOpen, taskId, onCancel }) => {
+const EditTaskPage = ({ isOpen, taskId, onCancel, isEditMode  }) => {
     const user = useStore($user);
     const tasks = useStore($tasks);
 
@@ -17,17 +15,24 @@ const EditTaskPage = ({ isOpen, taskId, onCancel }) => {
 
 
     const onFinish = values => {
-        updateTaskFx({ ...task, ...values })
-            .then(() => {
-                onCancel();
-            })
-            .catch(error => console.error('Update task error:', error));
+        if (isEditMode && task) {
+            updateTaskFx({ ...task, ...values })
+                .then(() => {
+                    onCancel();
+                })
+                .catch(error => console.error('Update task error:', error));
+        } else {
+            createTaskFx(values)
+                .then(() => {
+                    onCancel();
+                })
+                .catch(error => console.error('Create task error:', error));
+        }
     };
+
     const handleDelete = () => {
-        // вызываем функцию для удаления задачи
         deleteTaskFx(taskId)
             .then(() => {
-                // после успешного удаления закрываем модальное окно
                 onCancel();
             })
             .catch(error => console.error('Delete task error:', error));
@@ -36,13 +41,13 @@ const EditTaskPage = ({ isOpen, taskId, onCancel }) => {
 
     return (
         <Modal
-            title={task ? `Edit Task: ${task.name}` : ''}
+            title={isEditMode ? (task ? `Edit Task: ${task.name}` : '') : 'Create Task'}
             visible={isOpen}
             onCancel={onCancel}
             footer={null}
         >
-            {task && (
-                <Form initialValues={task} onFinish={onFinish} style={{ width: '500px' }}
+            {(!isEditMode|| task) && (
+                <Form initialValues={task} onFinish={onFinish}
                       labelCol={{
                           span: 4,
                       }}
@@ -76,12 +81,19 @@ const EditTaskPage = ({ isOpen, taskId, onCancel }) => {
                         </Upload.Dragger>
                     </Form.Item>
                     <Form.Item>
+                        <div style={{display: 'flex', gap: '2em'}}>
+
                         <Button type="primary" htmlType="submit">
                             Save
                         </Button>
-                        <Button type="primary" onClick={handleDelete} danger style={{ marginLeft: '10px' }}>
+                        <Button  onClick={() => onCancel()}>
+                            Cancel
+                        </Button>
+                        <Button type="primary" onClick={handleDelete} danger >
                             Delete
                         </Button>
+                        </div>
+
                     </Form.Item>
                 </Form>
             )}

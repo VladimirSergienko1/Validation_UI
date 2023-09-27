@@ -19,6 +19,8 @@ export const updateTaskFx = createEffect(async (task) => {
     return task;
 });
 
+
+
 export const deleteTaskFx = createEffect(async (taskId) => {
     const response = await fetch(`http://localhost:3000/tasks/${taskId}`, {
         method: 'DELETE',
@@ -31,12 +33,31 @@ export const deleteTaskFx = createEffect(async (taskId) => {
     return taskId;
 });
 
+export const createTaskFx = createEffect(async (task) => {
+    const response = await fetch(`http://localhost:3000/tasks`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(task)
+    });
+
+    if (!response.ok) {
+        throw new Error('Failed to add task: ' + response.statusText);
+    }
+
+    return response.json();
+});
+
+
 export const TaskEditGate = createGate()
 
 $tasks.on(updateTaskFx.doneData, (tasks, updatedTask) =>
     tasks.map(task => task.id === updatedTask.id ? updatedTask : task)
 ).on(deleteTaskFx.doneData, (tasks, deletedTaskId) =>
     tasks.filter(task => task.id !== deletedTaskId)
+).on(createTaskFx.doneData, (tasks, newTask) =>
+    [...tasks, newTask]
 );
 
 sample({

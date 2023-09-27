@@ -11,6 +11,12 @@
       "login": "user",
       "password": "user",
       "isAdmin": false
+    },
+    {
+      "login": "22",
+      "password": "22",
+      "isAdmin": true,
+      "id": 3
     }
   ]
 }

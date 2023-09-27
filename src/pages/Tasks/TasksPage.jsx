@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import { useStore } from 'effector-react';
-import { Layout, Card, List, Modal } from 'antd';
+import {Layout, Card, List, Modal, Button} from 'antd';
 import {$tasks, fetchTasksFx, TasksGate} from "../../models/tasks_model.js";
 import { $user } from "../../models/login_model.js";
 import styles from './TasksPage.module.css'
-import { EditOutlined } from "@ant-design/icons";
+import {EditOutlined, PlusOutlined} from "@ant-design/icons";
 import EditTaskPage from "../admin/EditTask/EditTaskPage.jsx";
 import {useNavigate, useParams} from "react-router-dom";
 
@@ -17,22 +17,29 @@ const TasksPage = () => {
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [editingTaskId, setEditingTaskId] = useState(null);
 
-    const { taskId } = useParams();
-
-    useEffect(() => {
+  /*  const { taskId } = useParams();*/
+    /*useEffect(() => {
         if (taskId) {
             setEditingTaskId(taskId);
             setIsModalVisible(true);
         }
-    }, [taskId]);
+    }, [taskId]);*/
+
+    const [isEditMode, setIsEditMode] = useState(false);
+
 
     const handleEditClick = (taskId) => {
 
         setEditingTaskId(taskId);
         setIsModalVisible(true);
+        setIsEditMode(true);
         window.history.replaceState(null, '', `/tasks/edit/${taskId}`);
     };
-
+    const handleAddTask = () => {
+        setEditingTaskId(null);
+        setIsEditMode(false);
+        setIsModalVisible(true);
+    };
 
     const handleCancel = () => {
         setIsModalVisible(false);
@@ -40,12 +47,25 @@ const TasksPage = () => {
         window.history.replaceState(null, '', `/tasks`);
     };
 
+
+
     return (
         <>
             <TasksGate />
                 <Card
                     title={'Tasks'}
-                    className={(user && user.isAdmin) ? styles.admin__card_container : styles.card__container}>
+                    className={(user && user.isAdmin) ? styles.admin__card_container : styles.card__container}
+                    extra={
+                            <Button
+                                type="primary"
+                                icon={<PlusOutlined />}
+                                onClick={()=>handleAddTask()}
+
+                            >
+                                Add Task
+                            </Button>
+                    }
+                >
                     <List
                         itemLayout="horizontal"
                         dataSource={tasks}
@@ -77,7 +97,7 @@ const TasksPage = () => {
                         )}
                     />
                 </Card>
-                <EditTaskPage key={editingTaskId} isOpen={isModalVisible} taskId={editingTaskId} onCancel={handleCancel} />
+                <EditTaskPage key={editingTaskId} isOpen={isModalVisible} taskId={editingTaskId} onCancel={handleCancel}  isEditMode={isEditMode} />
         </>
     );
 };

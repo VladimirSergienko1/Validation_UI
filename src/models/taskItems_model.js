@@ -32,7 +32,6 @@ export const updateTaskItemEv = createEvent();
 export const $taskItems = createStore([])
     .on(fetchTaskItemsFx.doneData,(_, items)=> items)
     .on(updateTaskItemEv, (taskItems, updatedTaskItem) => {
-        console.log('EVENT',taskItems, updatedTaskItem)
         return taskItems.map(taskItem =>
             taskItem.id === updatedTaskItem.id ? updatedTaskItem : taskItem
         );

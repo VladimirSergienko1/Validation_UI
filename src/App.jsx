@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import './App.css'
-import {Link, Navigate, Outlet, useLocation} from "react-router-dom";
+import {Link, Navigate, Outlet, useLocation, useNavigate} from "react-router-dom";
 import LoginPage from "./pages/LoginPage/LoginPage.jsx";
 import {useStore} from "effector-react";
 import {$authStatus, setAuthStatus} from "./models/auth_model.js";
@@ -17,6 +17,7 @@ function App() {
     const authStatus = useStore($authStatus)
 
     const user = useStore($user)
+    const navigate = useNavigate();
 
     const location = useLocation();
     /*const selectedKey =  location.pathname === "/tasks" ? "sub1" : "sub2";*/
@@ -40,9 +41,11 @@ function App() {
 
     const logOut = () =>{
         logOutFx().then(() => {
+
             setAuthStatus(false);
-            setAdminStatus(false);
-            Navigate('/');
+            /*setAdminStatus(false);*/
+            navigate('/');
+
 
         }).catch(error => {
             console.error('Login error:', error);
