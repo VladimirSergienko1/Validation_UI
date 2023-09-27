@@ -22,17 +22,20 @@ function App() {
     /*const selectedKey =  location.pathname === "/tasks" ? "sub1" : "sub2";*/
     let selectedKey;
 
-    if (location.pathname.startsWith("/admin/edit/")) {
+   /* if (location.pathname.startsWith("/admin/edit/")) {
         selectedKey = "sub2";
-    } else {
+    } else {*/
         switch (location.pathname) {
             case "/tasks":
                 selectedKey = "sub1";
                 break;
+            case "/admin/users":
+                selectedKey = "sub2";
+                break;
             default:
                 selectedKey = "";
         }
-    }
+   /* }*/
 
 
     const logOut = () =>{
@@ -46,7 +49,7 @@ function App() {
         });
 
     };
-    const handleSubmit = () => {
+  /*  const handleSubmit = () => {
         const mockData = {
             login: faker.internet.userName(),
             password: faker.internet.password(),
@@ -66,7 +69,7 @@ function App() {
         });
 
         form.resetFields();
-    };
+    };*/
 
   console.log(React.version);
 
@@ -76,7 +79,7 @@ function App() {
       return (
         <div>
             <Spin spinning={false} tip={'Loading'}>
-                <Layout>
+                <Layout style={{width: '90%', margin: '0 auto', minHeight:'600px'}}>
                     {user && user.isAdmin && (
                         <Sider collapsed={true}>
                             <div className="demo-logo-vertical" />

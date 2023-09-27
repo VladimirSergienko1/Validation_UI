@@ -64,7 +64,7 @@
     {
       "id": 2,
       "name": "Task 2",
-      "description": "Описание 1",
+      "description": "Описание 2",
       "task_items": [
         {
           "id": 1,
@@ -185,7 +185,7 @@
     },
     {
       "id": 4,
-      "name": "Task 11",
+      "name": "Task 4",
       "description": "Описание 111",
       "task_items": [
         {
@@ -244,7 +244,7 @@
     },
     {
       "id": 5,
-      "name": "Task 11",
+      "name": "Task 5",
       "description": "Описание 111",
       "task_items": [
         {

@@ -47,7 +47,7 @@ export const loginFx = createEffect(async ({login, password}) => {
 
 export const $user = createStore(null);
 
-export const setAdminStatus = createEvent(false);
+export const setAdminStatus = createEvent(true);
 $user.on(setAdminStatus, (_, newValue) => newValue);
 
 

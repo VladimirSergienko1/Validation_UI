@@ -1,0 +1,27 @@
+.usersListCard {
+    width: 100%;
+}
+
+.userItem {
+    padding: 0px;
+    font-size: 16px;
+}
+.ant-list-item{
+    padding: 0;
+}
+
+@media (max-width: 767px){
+    .usersListCard {
+        width: 100%;
+        margin: 0;
+        padding: 0;
+    }
+
+    .userItem {
+        padding: 10px;
+        font-size: 14px;
+    }
+    .ant-list-item{
+
+    }
+}
