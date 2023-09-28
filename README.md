@@ -7,7 +7,7 @@ json-server --watch .\users.json --port 3002
 json-server --watch .\db.json --port 3000
 
 To change user (user/admin)
-IN LoginPage chane login & pass (user => admin)
+In LoginPage change login & pass (user => admin)
  
 const handleSubmit = () => {
         const mockData = {
