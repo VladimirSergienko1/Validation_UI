@@ -41,7 +41,7 @@ const LoginPage = () => {
     const handleSubmit = () => {
         const mockData = {
             login: 'admin',
-            password: 'admin ',
+            password: 'admin',
             /*login: faker.internet.userName(),
             password: faker.internet.password(),*/
         };
@@ -78,8 +78,8 @@ const LoginPage = () => {
             <Form
                 form={form}
                 initialValues={{
-                    ["login"]: 'd',
-                    ["password"]: 'd',
+                    ["login"]: 'test',
+                    ["password"]: 'test',
                 }}
                 layout="vertical"
                 onFinish={handleSubmit}

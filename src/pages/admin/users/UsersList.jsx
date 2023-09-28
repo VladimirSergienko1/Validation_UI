@@ -5,11 +5,13 @@ import {$usersList, createUserFx, fetchUsersFx, updateUserFx, UsersGate} from ".
 import {useStore} from "effector-react";
 import styles from "./UsersList.module.css";
 import {updateTaskFx} from "../../../models/admin/taskEdit_model.js";
+import {$user} from "../../../models/login_model.js";
 
 
 const UsersList = () => {
     const users = useStore($usersList);
     const loading = useStore(fetchUsersFx.pending);
+    const user = useStore($user)
 
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [editingUser, setEditingUser] = useState(null);
@@ -61,6 +63,7 @@ const UsersList = () => {
                 className={styles.usersListCard}
                 title={'Users'}
                 extra={
+                    (user && user.isAdmin) ? (
                     <Button
                         type="primary"
                         icon={<PlusOutlined />}
@@ -68,6 +71,7 @@ const UsersList = () => {
                     >
                         Add User
                     </Button>
+                    ) : ''
                 }
                 >
                 <List

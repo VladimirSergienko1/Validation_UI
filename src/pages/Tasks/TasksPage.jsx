@@ -56,6 +56,7 @@ const TasksPage = () => {
                     title={'Tasks'}
                     className={(user && user.isAdmin) ? styles.admin__card_container : styles.card__container}
                     extra={
+                        (user && user.isAdmin) ? (
                             <Button
                                 type="primary"
                                 icon={<PlusOutlined />}
@@ -64,6 +65,7 @@ const TasksPage = () => {
                             >
                                 Add Task
                             </Button>
+                        ) : ''
                     }
                 >
                     <List
@@ -78,26 +80,38 @@ const TasksPage = () => {
                             pageSize: 6,
                         }}
                         renderItem={(item) => (
-                            <Link to={`/tasks/${item.id}`} disabled={!user?.isAdmin} >
 
-                            <List.Item className={user?.isAdmin ? styles.adminListItem : styles.list__item}>
-                                <List.Item.Meta
-                                    title={item.name}
-                                    description={item.description}
-                                />
-                                <div style={{ display: 'flex' }}>
-                                    <p className={styles.list__item_count}>
-                                        {`${item.task_items.filter(item => !item.answered).length}/${item.task_items.length}`}
-                                    </p>
-                                </div>
-                                {user?.isAdmin &&
-                                    <div style={{ display: 'flex' }}>
-                                        <EditOutlined onClick={() => handleEditClick(item.id)} />
+                            user?.isAdmin ? (
+                                <List.Item className={user?.isAdmin ? styles.adminListItem : styles.list__item}>
+                                    <List.Item.Meta
+                                        title={item.name}
+                                        description={item.description}
+                                    />
+                                    <div style={{ display: 'flex', width: '100px', justifyContent: 'space-between'}}>
+                                        <p className={styles.list__item_count}>
+                                            {`${item.task_items.filter(item => !item.answered).length}/${item.task_items.length}`}
+                                        </p>
+                                        <div style={{ display: 'flex' }}>
+                                            <EditOutlined onClick={() => handleEditClick(item.id)} />
+                                        </div>
                                     </div>
-                                }
-                            </List.Item>
-                            </Link>
-
+                                </List.Item>
+                            ) :
+                            (
+                                <Link to={`/tasks/${item.id}`}>
+                                    <List.Item className={user?.isAdmin ? styles.adminListItem : styles.list__item}>
+                                        <List.Item.Meta
+                                            title={item.name}
+                                            description={item.description}
+                                        />
+                                        <div style={{ display: 'flex', width: '100px', justifyContent: 'space-between'}}>
+                                            <p className={styles.list__item_count}>
+                                                {`${item.task_items.filter(item => !item.answered).length}/${item.task_items.length}`}
+                                            </p>
+                                        </div>
+                                    </List.Item>
+                                </Link>
+                            )
                         )}
                     />
                 </Card>

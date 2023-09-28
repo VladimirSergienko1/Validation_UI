@@ -49,7 +49,7 @@ const EditTaskPage = ({ isOpen, taskId, onCancel, isEditMode  }) => {
             {(!isEditMode|| task) && (
                 <Form initialValues={task} onFinish={onFinish}
                       labelCol={{
-                          span: 4,
+                          span: 5,
                       }}
                       wrapperCol={{
                           span: 14,
@@ -77,7 +77,7 @@ const EditTaskPage = ({ isOpen, taskId, onCancel, isEditMode  }) => {
                             <p className="ant-upload-drag-icon">
                                 <InboxOutlined />
                             </p>
-                            <p className="ant-upload-text">Click or drag file to this area to upload</p>
+                            <p className="ant-upload-text">Click or drag file to upload</p>
                         </Upload.Dragger>
                     </Form.Item>
                     <Form.Item>

@@ -17,8 +17,8 @@
             "Ответ 3",
             "Ответ 4"
           ],
-          "answered": true,
-          "user_answer": "Ответ 1"
+          "answered": false,
+          "user_answer": ""
         },
         {
           "id": 2,
@@ -30,8 +30,8 @@
             "Ответ 1",
             "Ответ 2"
           ],
-          "answered": true,
-          "user_answer": "Ответ 2"
+          "answered": false,
+          "user_answer": ""
         },
         {
           "id": 3,

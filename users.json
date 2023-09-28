@@ -13,8 +13,8 @@
       "isAdmin": false
     },
     {
-      "login": "22",
-      "password": "22",
+      "login": "test",
+      "password": "test",
       "isAdmin": true,
       "id": 3
     }
