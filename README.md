@@ -1,8 +1,19 @@
 To start with mock data 
 
+npm install -g json-server
+
 json-server --watch .\users.json --port 3002
 
 json-server --watch .\db.json --port 3000
+
+To change user (user/admin)
+IN LoginPage chane login & pass (user => admin)
+ 
+const handleSubmit = () => {
+        const mockData = {
+            login: 'admin',
+            password: 'admin',
+        };
 
 npm run dev
 
