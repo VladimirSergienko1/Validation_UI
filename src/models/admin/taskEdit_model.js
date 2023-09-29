@@ -38,7 +38,13 @@ export const createTaskFx = createEffect(async (task) => {
     const config = {headers: {"Content-Type": "multipart/form-data"}}
     const Body = new FormData();
     Body.append('task_items', task_items.file)
-    Object.entries(values).forEach(kv => Body.append(kv[0], JSON.stringify(kv[1])))
+    Object.entries(values).forEach(kv => {
+        if (typeof kv[1] !== "string") {
+            Body.append(kv[0], JSON.stringify(kv[1]))
+        } else {
+            Body.append(kv[0], kv[1])
+        }
+    })
 
     return (await api().post('/tasks/create', Body, config))
 });
