@@ -4,7 +4,6 @@ import React, {useState} from "react";
 import {$usersList, createUserFx, fetchUsersFx, updateUserFx, UsersGate} from "../../../models/admin/users_model.js";
 import {useStore} from "effector-react";
 import styles from "./UsersList.module.css";
-import {updateTaskFx} from "../../../models/admin/taskEdit_model.js";
 import {$user} from "../../../models/login_model.js";
 
 
@@ -121,7 +120,7 @@ const UsersList = () => {
                         <Form.Item
                             label="Password"
                             name="password"
-                            rules={[{ required: true, message: "Please input the password!" }]}
+                            rules={[{ required: !editingUser, message: "Please input the password!" }]}
                         >
                             <Input />
                         </Form.Item>

@@ -1,47 +1,18 @@
 import {createEffect, createStore, sample} from "effector";
-import usersList from "../../pages/admin/users/UsersList.jsx";
 import {createGate} from "effector-react";
+import {api} from "../../api/axios.js";
 
 
 export const fetchUsersFx = createEffect(async () => {
-    const response = await fetch('http://localhost:3002/users');
-    return new Promise(resolve => {
-        setTimeout( ()=>(
-            resolve(response.json())
-        ),300)
-    })
+    return (await api().get('/users')).data
 })
 
 export const updateUserFx = createEffect(async (user) => {
-    const response = await fetch(`http://localhost:3002/users/${user.id}`, {
-        method: 'PUT',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(user)
-    });
-
-    if (!response.ok) {
-        throw new Error('Failed to update user');
-    }
-
-    return response.json();
+    return (await api().patch(`/users/update/${user.id}`, user))
 });
 
 export const createUserFx = createEffect(async (user) => {
-    const response = await fetch('http://localhost:3002/users', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(user)
-    });
-
-    if (!response.ok) {
-        throw new Error('Failed to create user');
-    }
-
-    return response.json();
+    return (await api().post('users/create', user))
 });
 
 

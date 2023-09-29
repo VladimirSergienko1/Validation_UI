@@ -1,7 +1,7 @@
 import {$tasks, fetchTasksFx} from "../tasks_model.js";
-import {createEffect, forward, sample} from "effector";
-import {useState} from "react";
+import {createEffect, sample} from "effector";
 import {createGate} from "effector-react";
+import {api} from "../../api/axios.js";
 
 export const updateTaskFx = createEffect(async (task) => {
     const response = await fetch(`http://localhost:3000/tasks/${task.id}`, {
@@ -34,19 +34,13 @@ export const deleteTaskFx = createEffect(async (taskId) => {
 });
 
 export const createTaskFx = createEffect(async (task) => {
-    const response = await fetch(`http://localhost:3000/tasks`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(task)
-    });
+    const {task_items, ...values} = task
+    const config = {headers: {"Content-Type": "multipart/form-data"}}
+    const Body = new FormData();
+    Body.append('task_items', task_items.file)
+    Object.entries(values).forEach(kv => Body.append(kv[0], JSON.stringify(kv[1])))
 
-    if (!response.ok) {
-        throw new Error('Failed to add task: ' + response.statusText);
-    }
-
-    return response.json();
+    return (await api().post('/tasks/create', Body, config))
 });
 
 
