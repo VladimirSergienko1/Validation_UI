@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import {Button, Input, Form, Typography, Card, Spin} from 'antd';
 import styles  from './LoginPage.module.css';
-import {useStore} from "effector-react";
+import {useEvent, useStore} from "effector-react";
 /*import {$formData, changeFormData, submitForm} from "../../models/login_model.js";*/
 import {faker} from "@faker-js/faker";
-import {$user, loginFx, LoginGate, setAdminStatus} from "../../models/login_model.js";
+import {$user, loginEv, loginFx, LoginGate, setAdminStatus} from "../../models/login_model.js";
 import {Link, useNavigate} from "react-router-dom";
 import {$authStatus, setAuthStatus} from "../../models/auth_model.js";
 /*import {submitForm, $formData, changeFormData} from "../../models/login_model.js";*/
@@ -23,63 +23,29 @@ const LoginPage = () => {
     const status = useStore($authStatus);
     const user = useStore($user);
 
-    console.log('Auth status',status)
-    console.log('State User',user)
+    const onLogin = useEvent(loginEv)
 
-    if (status){
-       /* if (user && user.isAdmin){
-            navigate('/tasks');
+    useEffect(() => {
+        if (user.isAdmin) {
+            navigate('/tasks')
         }
-        else{
-            navigate('/tasks');
-
-        }*/
-        navigate('/tasks');
-    }
+    }, [user]);
 
 
-    const handleSubmit = () => {
-        const mockData = {
-            login: 'admin',
-            password: 'admin',
-            /*login: faker.internet.userName(),
-            password: faker.internet.password(),*/
-        };
-        console.log('Mock Data:', mockData);
-
-
-
-
-        loginFx(mockData).then(user => {
-            setAuthStatus(true);
-
-
-            if(mockData.login==='admin') {
-                /*setAdminStatus(true);
-                navigate('/admin');*/
-                console.log('User is Admin ' , user.isAdmin);
-            }
-            else{
-                navigate('/tasks');
-            }
-        }).catch(error => {
-            console.error('Login error:', error);
-        });
-
+    const handleSubmit = (values) => {
+        onLogin(values)
 
         form.resetFields();
     };
 
     return (
         <Card className={styles.login__container}>
-            <LoginGate/>
-
             <Title level={2}>Login Page</Title>
             <Form
                 form={form}
                 initialValues={{
-                    ["login"]: 'test',
-                    ["password"]: 'test',
+                    ["login"]: 'admin2',
+                    ["password"]: 'not-random',
                 }}
                 layout="vertical"
                 onFinish={handleSubmit}

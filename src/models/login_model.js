@@ -1,41 +1,19 @@
 import {createEffect, createEvent, createStore, sample} from 'effector';
-import {createGate, useGate} from "effector-react";
-import {$authStatus} from "./auth_model.js";
+import {createGate} from "effector-react";
+import {api} from "../api/axios.js";
+
 
 
 
 export const LoginGate = createGate();
 
-/*export const loginFx = createEffect(async ({login, password}) => {
-    return new Promise((resolve, reject) => setTimeout(()=>{
-        if (login && password){
-            return resolve(true)
-        }
-        else {
-            return reject(true)
-        }
-    },2000))
-})*/
+export const loginEv = createEvent()
+
 export const loginFx = createEffect(async ({login, password}) => {
-    return new Promise((resolve, reject) => {
-        setTimeout(async () => {
-            try {
-                const response = await fetch(`http://localhost:3002/users?login=${login}&password=${password}`);
-                const users = await response.json();
-                if (users.length === 0) throw new Error('Invalid credentials');
-                resolve(users[0]);
-            } catch (error) {
-                reject(error);
-            }
-        }, 500);
-    });
+    return (await api().post('/auth/login', {login, password})).data
 });
 
 export const $user = createStore(null);
-
-export const setAdminStatus = createEvent();
-$user.on(setAdminStatus, (_, newValue) => newValue);
-
 
 export const logOutFx = createEffect(async()=>{
     return new Promise(resolve => {
@@ -46,9 +24,9 @@ export const logOutFx = createEffect(async()=>{
 })
 
 sample({
-    clock: LoginGate.open,
+    clock: loginEv,
     target: loginFx
 })
-$user.on(loginFx.doneData, (_, user) => user);
-/*
-$user.reset(logOutFx);*/
+
+$user.on(loginFx.doneData, (_, data) => data.user);
+
