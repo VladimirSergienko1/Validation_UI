@@ -8,10 +8,12 @@ export const fetchUsersFx = createEffect(async () => {
 })
 
 export const updateUserFx = createEffect(async (user) => {
+    user['is_admin'] = user.isAdmin
     return (await api().patch(`/users/update/${user.id}`, user))
 });
 
 export const createUserFx = createEffect(async (user) => {
+    user['is_admin'] = user.isAdmin
     return (await api().post('users/create', user))
 });
 

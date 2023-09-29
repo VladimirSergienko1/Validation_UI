@@ -1,14 +1,9 @@
 import {createEffect, createStore, sample} from "effector";
 import {createGate} from "effector-react";
+import {api} from "../api/axios.js";
 
 export const fetchTasksFx = createEffect(async () => {
-    const response = await fetch('http://localhost:3000/tasks');
-    return new Promise(resolve => {
-        setTimeout( ()=>(
-            resolve([])
-        ),300)
-    })
-
+    return (await api().get('tasks')).data
 })
 
 export const TasksGate = createGate()
