@@ -1,13 +1,11 @@
-import React, { useState } from 'react'
+import React from 'react'
 import './App.css'
 import {Link, Navigate, Outlet, useLocation, useNavigate} from "react-router-dom";
-import LoginPage from "./pages/LoginPage/LoginPage.jsx";
 import {useStore} from "effector-react";
-import {$authStatus, setAuthStatus} from "./models/auth_model.js";
+import {$authStatus} from "./models/auth_model.js";
 import {Button, Layout, Spin, Menu} from "antd";
 import { PoweroffOutlined } from '@ant-design/icons';
-import {faker} from "@faker-js/faker";
-import {$user, loginFx, logOutFx, setAdminStatus} from "./models/login_model.js";
+import {$user, logOutFx} from "./models/login_model.js";
 import {
     TeamOutlined, UnorderedListOutlined,
 } from '@ant-design/icons';
@@ -40,41 +38,14 @@ function App() {
 
 
     const logOut = () =>{
-        logOutFx().then(() => {
-
-            setAuthStatus(false);
-            /*setAdminStatus(false);*/
-            navigate('/');
-
-
-        }).catch(error => {
+        logOutFx()
+            .then(() => {navigate('/');})
+            .catch(error => {
             console.error('Login error:', error);
         });
 
     };
-  /*  const handleSubmit = () => {
-        const mockData = {
-            login: faker.internet.userName(),
-            password: faker.internet.password(),
-        };
-        console.log('Mock Data:', mockData);
 
-
-
-
-        loginFx(mockData).then(() => {
-            setAuthStatus(true);
-            setAdminStatus(true);
-            Navigate('/tasks');
-
-        }).catch(error => {
-            console.error('Login error:', error);
-        });
-
-        form.resetFields();
-    };*/
-
-  console.log(React.version);
 
     if (!authStatus) {
         return <Navigate to="/" />;

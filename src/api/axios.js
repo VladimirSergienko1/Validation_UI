@@ -8,6 +8,8 @@ export const api = (auth = true) => {
     // @ts-ignore
     const instance = axios.create({baseURL: 'http://localhost:3000/api/v1', withCredentials: true})
 
+    instance.defaults.headers["Access-Control-Allow-Origin"] = '*'
+
     // if (auth) {
     //     const access_token = cookies.get('access_token')
     //     instance.defaults.headers.common['Authorization'] = `Bearer ${access_token}`

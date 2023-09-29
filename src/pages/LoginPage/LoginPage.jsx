@@ -1,13 +1,10 @@
-import React, {useEffect, useState} from 'react';
-import {Button, Input, Form, Typography, Card, Spin} from 'antd';
+import React, {useEffect} from 'react';
+import {Button, Input, Form, Typography, Card} from 'antd';
 import styles  from './LoginPage.module.css';
 import {useEvent, useStore} from "effector-react";
-/*import {$formData, changeFormData, submitForm} from "../../models/login_model.js";*/
-import {faker} from "@faker-js/faker";
-import {$user, loginEv, loginFx, LoginGate, setAdminStatus} from "../../models/login_model.js";
-import {Link, useNavigate} from "react-router-dom";
-import {$authStatus, setAuthStatus} from "../../models/auth_model.js";
-/*import {submitForm, $formData, changeFormData} from "../../models/login_model.js";*/
+import {$user, loginEv, loginFx} from "../../models/login_model.js";
+import {useNavigate} from "react-router-dom";
+import {$authStatus} from "../../models/auth_model.js";
 
 
 
@@ -26,7 +23,7 @@ const LoginPage = () => {
     const onLogin = useEvent(loginEv)
 
     useEffect(() => {
-        if (user.isAdmin) {
+        if (user?.isAdmin) {
             navigate('/tasks')
         }
     }, [user]);

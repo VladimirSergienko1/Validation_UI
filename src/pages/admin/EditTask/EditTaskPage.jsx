@@ -11,7 +11,8 @@ const EditTaskPage = ({ isOpen, taskId, onCancel, isEditMode  }) => {
     const user = useStore($user);
     const tasks = useStore($tasks);
 
-    const task = tasks.find(t => t.id === parseInt(taskId));
+    // const task = tasks?.find(t => t?.id === parseInt(taskId));
+    const task = tasks?.find(t => t?.id === parseInt(taskId)) ?? {};
 
 
     const onFinish = values => {

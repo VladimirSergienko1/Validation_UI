@@ -1,11 +1,5 @@
 import {createEffect, createEvent, createStore, sample} from 'effector';
-import {createGate} from "effector-react";
 import {api} from "../api/axios.js";
-
-
-
-
-export const LoginGate = createGate();
 
 export const loginEv = createEvent()
 
