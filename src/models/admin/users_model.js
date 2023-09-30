@@ -1,6 +1,7 @@
 import {createEffect, createStore, sample} from "effector";
 import {createGate} from "effector-react";
 import {api} from "../../api/axios.js";
+import {TasksGate} from "../tasks_model.js";
 
 
 export const fetchUsersFx = createEffect(async () => {
@@ -9,12 +10,12 @@ export const fetchUsersFx = createEffect(async () => {
 
 export const updateUserFx = createEffect(async (user) => {
     user['is_admin'] = user.isAdmin
-    return (await api().patch(`/users/update/${user.id}`, user))
+    return (await api().patch(`/users/update/${user.id}`, user)).data
 });
 
 export const createUserFx = createEffect(async (user) => {
     user['is_admin'] = user.isAdmin
-    return (await api().post('users/create', user))
+    return (await api().post('users/create', user)).data
 });
 
 
@@ -28,6 +29,6 @@ export const $usersList = createStore([])
 export const UsersGate = createGate()
 
 sample({
-    clock: UsersGate.open,
+    clock: [UsersGate.open, TasksGate.open],
     target: fetchUsersFx
 })

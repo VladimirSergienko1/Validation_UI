@@ -22,46 +22,39 @@ export const updateTaskFx = createEffect(async (task) => {
 
 
 export const deleteTaskFx = createEffect(async (taskId) => {
-    const response = await fetch(`http://localhost:3000/tasks/${taskId}`, {
-        method: 'DELETE',
-    });
-
-    if (!response.ok) {
-        throw new Error('Failed to delete task: ' + response.statusText);
-    }
-
-    return taskId;
+    return (await api().delete(`/tasks/delete/${taskId}`)).data
 });
 
 export const createTaskFx = createEffect(async (task) => {
     const {task_items, ...values} = task
-    const config = {headers: {"Content-Type": "multipart/form-data"}}
-    const Body = new FormData();
-    Body.append('task_items', task_items.file)
-    Object.entries(values).forEach(kv => {
-        if (typeof kv[1] !== "string") {
-            Body.append(kv[0], JSON.stringify(kv[1]))
-        } else {
-            Body.append(kv[0], kv[1])
-        }
-    })
 
-    return (await api().post('/tasks/create', Body, config))
+    values['answer_options'] = [0, 1]
+
+    const config = {headers: {"Content-Type": "multipart/form-data"}}
+    const TaskItems = new FormData();
+    TaskItems.append('task_items', task_items.file)
+
+    // Create task itself
+    return api().post('tasks/create', values)
+        .then(res => res.data.id)
+        // Create task items from xlsx
+        .then(id => api().post(`/tasks/create/task-items/${id}`, TaskItems, config))
+        .then(res => res.data)
 });
 
 
 export const TaskEditGate = createGate()
 
-$tasks.on(updateTaskFx.doneData, (tasks, updatedTask) =>
+$tasks
+    .on(updateTaskFx.doneData, (tasks, updatedTask) =>
     tasks.map(task => task.id === updatedTask.id ? updatedTask : task)
-).on(deleteTaskFx.doneData, (tasks, deletedTaskId) =>
-    tasks.filter(task => task.id !== deletedTaskId)
-).on(createTaskFx.doneData, (tasks, newTask) =>
-    [...tasks, newTask]
-);
+    )
+    .on(createTaskFx.doneData, (tasks, newTask) =>
+        [...tasks, newTask]
+    );
 
 sample({
-    clock: TaskEditGate.open,
+    clock: [TaskEditGate.open, deleteTaskFx.doneData],
     target: fetchTasksFx,
     fn: (params) => params.taskId,
 })

@@ -1,18 +1,25 @@
 import React, {useRef, useState} from 'react';
-import { useStore } from 'effector-react';
-import { Modal, Form, Input, Button, Upload  } from 'antd';
+import {useStore, useStoreMap} from 'effector-react';
+import {Modal, Form, Input, Button, Upload, Select, InputNumber} from 'antd';
 import styles from '../../Tasks/TasksPage.module.css';
 import {createTaskFx, deleteTaskFx, updateTaskFx} from "../../../models/admin/taskEdit_model.js";
 import {$user} from "../../../models/login_model.js";
 import {$tasks} from "../../../models/tasks_model.js";
 import {InboxOutlined} from "@ant-design/icons";
+import {$usersList} from "../../../models/admin/users_model.js";
 
 const EditTaskPage = ({ isOpen, taskId, onCancel, isEditMode  }) => {
     const user = useStore($user);
     const tasks = useStore($tasks);
+    const usersSelect = useStoreMap($usersList, usrs => usrs.map(u => (
+        {label: u.login, value: u.id}
+    )))
 
     // const task = tasks?.find(t => t?.id === parseInt(taskId));
     const task = tasks?.find(t => t?.id === parseInt(taskId)) ?? {};
+
+    const [taskForm] = Form.useForm()
+    const maxOverlap = Form.useWatch('users_ids', taskForm)
 
 
     const onFinish = values => {
@@ -43,14 +50,19 @@ const EditTaskPage = ({ isOpen, taskId, onCancel, isEditMode  }) => {
     return (
         <Modal
             title={isEditMode ? (task ? `Edit Task: ${task.name}` : '') : 'Create Task'}
-            visible={isOpen}
-            onCancel={onCancel}
+            open={isOpen}
+            onCancel={() => {
+                taskForm.resetFields()
+                onCancel()
+            }}
             footer={null}
         >
             {(!isEditMode|| task) && (
-                <Form initialValues={task} onFinish={onFinish}
+                <Form initialValues={task}
+                      onFinish={onFinish}
+                      form={taskForm}
                       labelCol={{
-                          span: 5,
+                          span: 7,
                       }}
                       wrapperCol={{
                           span: 14,
@@ -71,7 +83,21 @@ const EditTaskPage = ({ isOpen, taskId, onCancel, isEditMode  }) => {
                         <Input.TextArea rows={4} />
                     </Form.Item>
                     <Form.Item
-                        label="task_items"
+                        label="Users assigned"
+                        name="users_ids"
+                        rules={[{ required: true, message: 'Please select responsible users!' }]}
+                    >
+                        <Select options={usersSelect} mode={'multiple'}/>
+                    </Form.Item>
+                    <Form.Item
+                        label="Overlap"
+                        name="overlap"
+                        rules={[{ message: `Overlap can't be more then number of selected user`, max: maxOverlap?.length}]}
+                    >
+                        <InputNumber max={maxOverlap?.length}/>
+                    </Form.Item>
+                    <Form.Item
+                        label="Task items"
                         name="task_items"
                     >
                         <Upload.Dragger name="file"  beforeUpload={() => false}>
