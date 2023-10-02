@@ -1,6 +1,8 @@
 import {createEvent, createStore} from "effector";
 import {loginFx} from "./login_model.js";
-import cookies from 'js-cookie'
+import Cookies from "universal-cookie";
+
+const cookies = new Cookies()
 
 export const $authStatus = createStore(!!cookies.get('access_token'))
 $authStatus.watch(state => console.log('AUTH STATUS', state))
