@@ -2,9 +2,9 @@ import React, {useEffect} from 'react';
 import {Button, Input, Form, Typography, Card} from 'antd';
 import styles  from './LoginPage.module.css';
 import {useEvent, useStore} from "effector-react";
-import {$user, loginEv, loginFx} from "../../models/login_model.js";
-import {useNavigate} from "react-router-dom";
+import {loginEv, loginFx} from "../../models/login_model.js";
 import {$authStatus} from "../../models/auth_model.js";
+import {useNavigate} from "react-router-dom";
 
 
 
@@ -12,21 +12,18 @@ const { Title } = Typography;
 
 const LoginPage = () => {
 
-    const navigate = useNavigate();
-
+    const navigate = useNavigate()
     const [form] = Form.useForm();
     const loading = useStore(loginFx.pending);
-
-    const status = useStore($authStatus);
-    const user = useStore($user);
-
-    const onLogin = useEvent(loginEv)
+    const authStatus = useStore($authStatus)
 
     useEffect(() => {
-        if (user?.isAdmin) {
+        if (authStatus) {
             navigate('/tasks')
         }
-    }, [user]);
+    }, [authStatus]);
+
+    const onLogin = useEvent(loginEv)
 
 
     const handleSubmit = (values) => {
@@ -41,8 +38,8 @@ const LoginPage = () => {
             <Form
                 form={form}
                 initialValues={{
-                    ["login"]: 'admin2',
-                    ["password"]: 'not-random',
+                    ["login"]: 'admin',
+                    ["password"]: 'admin',
                 }}
                 layout="vertical"
                 onFinish={handleSubmit}
@@ -52,20 +49,14 @@ const LoginPage = () => {
                     name="login"
                     rules={[{ required: true, message: 'Please input your login!' }]}
                 >
-                    <Input
-                        name="login"
-                        value={''}
-                    />
+                    <Input name="login"/>
                 </Form.Item>
                 <Form.Item
                     label="Password"
                     name="password"
                     rules={[{ required: true, message: 'Please input your password!' }]}
                 >
-                    <Input.Password
-                        name="password"
-                        value={''}
-                    />
+                    <Input.Password name="password" />
                 </Form.Item>
                 <Form.Item>
                     <Button type="primary" htmlType="submit" loading={loading}>

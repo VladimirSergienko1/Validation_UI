@@ -1,21 +1,23 @@
 import React from 'react'
 import './App.css'
-import {Link, Navigate, Outlet, useLocation, useNavigate} from "react-router-dom";
-import {useStore} from "effector-react";
-import {$authStatus} from "./models/auth_model.js";
+import {Link, Navigate, Outlet, useLocation} from "react-router-dom";
+import {useEvent, useStore} from "effector-react";
+import {$authStatus, logoutEv} from "./models/auth_model.js";
 import {Button, Layout, Spin, Menu} from "antd";
 import { PoweroffOutlined } from '@ant-design/icons';
-import {$user, logOutFx} from "./models/login_model.js";
+import {$user} from "./models/login_model.js";
 import {
     TeamOutlined, UnorderedListOutlined,
 } from '@ant-design/icons';
+import Cookies from "universal-cookie";
 
 const { Sider } = Layout;
 function App() {
+    const cookies = new Cookies()
     const authStatus = useStore($authStatus)
+    const logout = useEvent(logoutEv)
 
     const user = useStore($user)
-    const navigate = useNavigate();
 
     const location = useLocation();
     /*const selectedKey =  location.pathname === "/tasks" ? "sub1" : "sub2";*/
@@ -37,13 +39,9 @@ function App() {
    /* }*/
 
 
-    const logOut = () =>{
-        logOutFx()
-            .then(() => {navigate('/');})
-            .catch(error => {
-            console.error('Login error:', error);
-        });
-
+    const logOut = () => {
+        cookies.remove('access_token', {path: '/'})
+        logout()
     };
 
 
