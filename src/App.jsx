@@ -1,11 +1,12 @@
 import React, {useEffect} from 'react'
+import './models/init'
 import './App.css'
 import {Link, Outlet, useLocation, useNavigate} from "react-router-dom";
 import {useEvent, useStore} from "effector-react";
-import {$authStatus, AppGate, logoutEv} from "./models/auth_model.js";
+import {$authStatus, AppGate, logoutEv} from "./models/authModel/index.js";
 import {Button, Layout, Spin, Menu} from "antd";
 import {PoweroffOutlined} from '@ant-design/icons';
-import {$user} from "./models/auth_model";
+import {$user} from "./models/authModel/index.js";
 import {
     TeamOutlined, UnorderedListOutlined,
 } from '@ant-design/icons';
@@ -19,7 +20,7 @@ function App() {
 
     useEffect(() => {
         if (!authStatus) {
-            navigate('/')
+            navigate('/login')
         }
     }, [authStatus]);
 

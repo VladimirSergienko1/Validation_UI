@@ -1,6 +1,7 @@
 import axios from "axios";
 import Cookies from "universal-cookie";
 import {notification} from "antd";
+import {setAuthStatusEv} from "../models/authModel/index.js";
 
 const cookies = new Cookies()
 
@@ -31,11 +32,7 @@ export const api = (auth = true) => {
 
         } else if (error.response.status === 401) {
             cookies.remove('access_token', {path: '/'})
-            try {
-                return instance(error.config)
-            } catch (e) {
-                cookies.remove('access_token', {path: '/'})
-            }
+            setAuthStatusEv(false)
         }
         notification.error({
             message: error.response.statusText,

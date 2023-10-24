@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
 import { useStore } from 'effector-react';
 import {Card, List, Button} from 'antd';
-import {$tasks, fetchTasksFx, TasksGate} from "../../models/tasks_model.js";
-import { $user } from "../../models/auth_model.js";
+import {$tasks, fetchTasksFx, TasksGate} from "../../models/tasksModel/index.js";
+import { $user } from "../../models/authModel/index.js";
 import styles from './TasksPage.module.css'
 import {EditOutlined, PlusOutlined} from "@ant-design/icons";
 import EditTaskPage from "../admin/EditTask/EditTaskPage.jsx";

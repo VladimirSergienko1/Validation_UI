@@ -1,6 +1,6 @@
 import {createEvent, createStore, sample} from "effector";
 import {createEffect} from "effector";
-import {api} from "../api/axios.js";
+import {api} from "../../api/axios.js";
 import {createGate} from "effector-react";
 
 export const AppGate = createGate()
@@ -18,20 +18,17 @@ export const logOutFx = createEffect()
 
 export const $authStatus = createStore(false)
 
-$authStatus.on(loginFx.doneData, () => true);
-$authStatus.on(checkAuthFx.doneData, (state, payload) => payload?.authorized ?? false)
-$authStatus.on(logOutFx.doneData, (_, data) => data)
+export const loginEv = createEvent()
+export const logoutEv = createEvent()
+export const setAuthStatusEv = createEvent()
+
+export const $user = createStore(null);
 
 sample({
     clock: [AppGate.status, LoginGate.status],
     filter: (status) => status,
     target: checkAuthFx
 })
-
-export const loginEv = createEvent()
-export const logoutEv = createEvent()
-
-export const $user = createStore(null);
 
 sample({
     clock: logoutEv,
@@ -42,6 +39,11 @@ sample({
     clock: loginEv,
     target: loginFx
 })
+
+$authStatus.on(loginFx.doneData, () => true);
+$authStatus.on(checkAuthFx.doneData, (state, payload) => payload?.authorized ?? false)
+$authStatus.on(logOutFx.doneData, (_, data) => data)
+$authStatus.on(setAuthStatusEv, (_, payload) => payload)
 
 $user.on(loginFx.doneData, (_, data) => data?.user);
 $user.on(checkAuthFx.doneData, (_, data) => data?.user)

@@ -1,7 +1,7 @@
 import {createEffect, createStore, sample} from "effector";
 import {createGate} from "effector-react";
-import {api} from "../../api/axios.js";
-import {TasksGate} from "../tasks_model.js";
+import {api} from "../../../api/axios.js";
+import {TasksGate} from "../../tasksModel/index.js";
 
 
 export const fetchUsersFx = createEffect(async () => {

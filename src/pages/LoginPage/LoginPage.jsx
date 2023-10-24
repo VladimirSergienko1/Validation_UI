@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import {Button, Input, Form, Typography, Card} from 'antd';
 import styles  from './LoginPage.module.css';
 import {useEvent, useStore} from "effector-react";
-import {loginEv, loginFx, $authStatus, LoginGate} from "../../models/auth_model";
+import {loginEv, loginFx, $authStatus, LoginGate} from "../../models/authModel/index.js";
 import {useNavigate} from "react-router-dom";
 
 

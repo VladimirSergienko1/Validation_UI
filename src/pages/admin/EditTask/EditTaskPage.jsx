@@ -1,11 +1,11 @@
 import React from 'react';
 import {useStore, useStoreMap} from 'effector-react';
 import {Modal, Form, Input, Button, Upload, Select, InputNumber} from 'antd';
-import {createTaskFx, deleteTaskFx, updateTaskFx} from "../../../models/admin/taskEdit_model.js";
-import {$user} from "../../../models/auth_model.js";
-import {$tasks} from "../../../models/tasks_model.js";
+import {createTaskFx, deleteTaskFx, updateTaskFx} from "../../../models/admin/taskEditModel/index.js";
+import {$user} from "../../../models/authModel/index.js";
+import {$tasks} from "../../../models/tasksModel/index.js";
 import {InboxOutlined} from "@ant-design/icons";
-import {$usersList} from "../../../models/admin/users_model.js";
+import {$usersList} from "../../../models/admin/usersModel/index.js";
 
 const EditTaskPage = ({ isOpen, taskId, onCancel, isEditMode  }) => {
     const user = useStore($user);

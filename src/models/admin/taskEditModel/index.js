@@ -1,7 +1,7 @@
-import {$tasks, fetchTasksFx} from "../tasks_model.js";
+import {$tasks, fetchTasksFx} from "../../tasksModel/index.js";
 import {createEffect, sample} from "effector";
 import {createGate} from "effector-react";
-import {api} from "../../api/axios.js";
+import {api} from "../../../api/axios.js";
 
 export const updateTaskFx = createEffect(async (task) => {
     const response = await fetch(`http://localhost:3000/tasks/${task.id}`, {

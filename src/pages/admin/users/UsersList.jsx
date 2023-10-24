@@ -1,10 +1,10 @@
 import {Button, Card, Checkbox, Form, Input, List, Modal} from "antd";
 import {EditOutlined, PlusOutlined} from "@ant-design/icons";
 import React, {useState} from "react";
-import {$usersList, createUserFx, fetchUsersFx, updateUserFx, UsersGate} from "../../../models/admin/users_model.js";
+import {$usersList, createUserFx, fetchUsersFx, updateUserFx, UsersGate} from "../../../models/admin/usersModel/index.js";
 import {useStore} from "effector-react";
 import styles from "./UsersList.module.css";
-import {$user} from "../../../models/auth_model";
+import {$user} from "../../../models/authModel/index.js";
 
 
 const UsersList = () => {

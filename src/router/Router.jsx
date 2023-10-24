@@ -3,13 +3,11 @@ import {createBrowserRouter} from "react-router-dom";
 import LoginPage from "../pages/LoginPage/LoginPage.jsx";
 import TasksPage from "../pages/Tasks/TasksPage.jsx";
 import TaskItems from "../pages/TaskItems/TaksItems.jsx";
-import AdminPage from "../pages/admin/AdminPage.jsx";
 import UsersList from "../pages/admin/users/UsersList.jsx";
-import EditTaskPage from "../pages/admin/EditTask/EditTaskPage.jsx";
 
 const routes = createBrowserRouter([
     {
-        path: "/",
+        path: "/login",
         element: <LoginPage />,
     },
     {
