@@ -1,9 +1,8 @@
 import React, {useEffect} from 'react';
 import {Button, Input, Form, Typography, Card} from 'antd';
 import styles  from './LoginPage.module.css';
-import {useEvent, useStore} from "effector-react";
-import {loginEv, loginFx} from "../../models/login_model.js";
-import {$authStatus} from "../../models/auth_model.js";
+import {useEvent, useGate, useStore} from "effector-react";
+import {loginEv, loginFx, $authStatus, AppGate} from "../../models/auth_model";
 import {useNavigate} from "react-router-dom";
 
 
@@ -11,6 +10,7 @@ import {useNavigate} from "react-router-dom";
 const { Title } = Typography;
 
 const LoginPage = () => {
+    useGate(AppGate)
 
     const navigate = useNavigate()
     const [form] = Form.useForm();

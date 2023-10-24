@@ -1,4 +1,4 @@
-import {$user} from "../../models/login_model.js";
+import {$user} from "../../models/auth_model.js";
 import {useStore} from "effector-react";
 import {useEffect} from "react";
 import {useNavigate} from "react-router-dom";

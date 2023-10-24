@@ -1,9 +1,8 @@
-import React, {useRef, useState} from 'react';
+import React from 'react';
 import {useStore, useStoreMap} from 'effector-react';
 import {Modal, Form, Input, Button, Upload, Select, InputNumber} from 'antd';
-import styles from '../../Tasks/TasksPage.module.css';
 import {createTaskFx, deleteTaskFx, updateTaskFx} from "../../../models/admin/taskEdit_model.js";
-import {$user} from "../../../models/login_model.js";
+import {$user} from "../../../models/auth_model.js";
 import {$tasks} from "../../../models/tasks_model.js";
 import {InboxOutlined} from "@ant-design/icons";
 import {$usersList} from "../../../models/admin/users_model.js";

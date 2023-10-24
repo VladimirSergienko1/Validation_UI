@@ -1,21 +1,20 @@
 import React from 'react'
 import './App.css'
 import {Link, Navigate, Outlet, useLocation} from "react-router-dom";
-import {useEvent, useStore} from "effector-react";
-import {$authStatus, logoutEv} from "./models/auth_model.js";
+import {useEvent, useGate, useStore} from "effector-react";
+import {$authStatus, AppGate, logoutEv} from "./models/auth_model.js";
 import {Button, Layout, Spin, Menu} from "antd";
 import { PoweroffOutlined } from '@ant-design/icons';
-import {$user} from "./models/login_model.js";
+import {$user} from "./models/auth_model";
 import {
     TeamOutlined, UnorderedListOutlined,
 } from '@ant-design/icons';
-import Cookies from "universal-cookie";
 
 const { Sider } = Layout;
 function App() {
-    const cookies = new Cookies()
     const authStatus = useStore($authStatus)
     const logout = useEvent(logoutEv)
+    useGate(AppGate)
 
     const user = useStore($user)
 
@@ -39,12 +38,6 @@ function App() {
    /* }*/
 
 
-    const logOut = () => {
-        cookies.remove('access_token', {path: '/'})
-        logout()
-    };
-
-
     if (!authStatus) {
         return <Navigate to="/" />;
     }
@@ -52,7 +45,7 @@ function App() {
         <div>
             <Spin spinning={false} tip={'Loading'}>
                 <Layout style={{width: '90%', margin: '0 auto', minHeight:'600px'}}>
-                    {user && user.isAdmin && (
+                    {user && user?.isAdmin && (
                         <Sider collapsed={true}>
                             <div className="demo-logo-vertical" />
                             <Menu theme="dark" selectedKeys={[selectedKey]} mode="inline">
@@ -68,7 +61,7 @@ function App() {
             <Button
                 className={'logout_btn'}
                 type="primary"
-                onClick={logOut}
+                onClick={() => logout()}
                 icon={<PoweroffOutlined />}
             >
             </Button>

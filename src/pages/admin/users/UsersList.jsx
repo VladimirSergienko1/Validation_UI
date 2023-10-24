@@ -4,7 +4,7 @@ import React, {useState} from "react";
 import {$usersList, createUserFx, fetchUsersFx, updateUserFx, UsersGate} from "../../../models/admin/users_model.js";
 import {useStore} from "effector-react";
 import styles from "./UsersList.module.css";
-import {$user} from "../../../models/login_model.js";
+import {$user} from "../../../models/auth_model";
 
 
 const UsersList = () => {

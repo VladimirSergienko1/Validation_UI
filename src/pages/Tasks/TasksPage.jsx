@@ -1,12 +1,12 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import { useStore } from 'effector-react';
-import {Layout, Card, List, Modal, Button} from 'antd';
+import {Card, List, Button} from 'antd';
 import {$tasks, fetchTasksFx, TasksGate} from "../../models/tasks_model.js";
-import { $user } from "../../models/login_model.js";
+import { $user } from "../../models/auth_model.js";
 import styles from './TasksPage.module.css'
 import {EditOutlined, PlusOutlined} from "@ant-design/icons";
 import EditTaskPage from "../admin/EditTask/EditTaskPage.jsx";
-import {Link, useNavigate, useParams} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 
 const TasksPage = () => {
     const tasks = useStore($tasks);
