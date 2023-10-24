@@ -86,7 +86,7 @@ const TaskItems = () =>{
                             <div>{'ID ' + item.id} {'Task ID: '+ item.task_id}</div>
                             <p>{item.description}</p>
                             <div className={styles.buttons_container}>
-                                {item.answers.map(answer => (
+                                {item?.answers?.map(answer => (
                                     <Button
                                         key={answer}
                                         onClick={() => handleClick(item.id, answer)}

@@ -31,15 +31,11 @@ export const api = (auth = true) => {
 
         } else if (error.response.status === 401) {
             cookies.remove('access_token', {path: '/'})
-            document.location.reload()
-
             try {
                 return instance(error.config)
             } catch (e) {
                 cookies.remove('access_token', {path: '/'})
-                document.location.reload()
             }
-
         }
         notification.error({
             message: error.response.statusText,
